@@ -3,11 +3,10 @@ import { addRole, updateRole, fetchRoles } from "../../api";
 import { useParams, useNavigate } from "react-router-dom";
 
 const AddEditRole = ({ roles }) => {
-  const [form, setForm] = useState({ name: "", permissions: [] });
+  const [form, setForm] = useState({ name: "" });
   const { id } = useParams();
 
-  const allPermissions = ["create", "read", "update", "delete"];
-
+  // Roles Map to fetch role by ID
   const rolesMap = new Map(roles.map((role) => [role.id, role]));
 
   // Fetch role details if editing
@@ -17,10 +16,7 @@ const AddEditRole = ({ roles }) => {
         if (id) {
           const role = rolesMap.get(id);
           if (role) {
-            setForm({
-              name: role.name,
-              permissions: role.permissions || [],
-            });
+            setForm({ name: role.name });
           }
         }
       } catch (error) {
@@ -31,25 +27,8 @@ const AddEditRole = ({ roles }) => {
   }, [roles]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      if (checked) {
-        // Permission added, perform "create" action
-        setForm((prev) => ({
-          ...prev,
-          permissions: [...prev.permissions, value], // Add permission
-        }));
-      } else {
-        // Permission removed, perform "delete" action
-        setForm((prev) => ({
-          ...prev,
-          permissions: prev.permissions.filter((perm) => perm !== value), // Remove permission
-        }));
-      }
-    } else {
-      setForm({ ...form, [name]: value });
-    }
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -89,26 +68,6 @@ const AddEditRole = ({ roles }) => {
             className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
             required
           />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600 mb-2">
-            Permissions
-          </label>
-          <div className="grid grid-cols-2 gap-4">
-            {allPermissions.map((permission) => (
-              <label key={permission} className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name="permissions"
-                  value={permission}
-                  checked={form.permissions.includes(permission)} // Pre-check existing permissions
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                {permission.charAt(0).toUpperCase() + permission.slice(1)}{" "}
-              </label>
-            ))}
-          </div>
         </div>
         <button
           type="submit"
