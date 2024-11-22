@@ -1,34 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa'; // For the search icon
 
-const RoleList = ({roles}) => {
-  // const roles = [
-  //   { id: 1, name: 'Admin', permissions: ['Add User', 'Edit User', 'Delete User'] },
-  //   { id: 2, name: 'Editor', permissions: ['Edit User', 'View User'] },
-  //   { id: 3, name: 'Viewer', permissions: ['View User'] },
-  // ];
+const RoleList = ({ roles }) => {
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const handleEdit = (rolId)=>{
-    window.location.href = '/edit-role/'+rolId;
-  }
+  // Handle search input
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filter roles based on search term
+  const filteredRoles = roles.filter(
+    (role) =>
+      role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      role.permissions.some(permission =>
+        permission.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+  );
+
+  const handleEdit = (roleId) => {
+    window.location.href = '/edit-role/' + roleId;
+  };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Role Management</h2>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-6">Role Management</h2>
+
+      {/* Search bar with icon */}
+      <div className="flex items-center mb-6">
+        <FaSearch className="text-gray-500 mr-3" />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search by role name or permission"
+          className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Table with enhanced styles */}
       <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
-        <thead>
+        <thead className="bg-gray-100">
           <tr>
-            <th className="px-4 py-2 border-b text-left">Role Name</th>
-            <th className="px-4 py-2 border-b text-left">Permissions</th>
-            <th className="px-4 py-2 border-b text-center">Actions</th>
+            <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border-b">Role Name</th>
+            <th className="px-6 py-4 text-left text-sm font-medium text-gray-700 border-b">Permissions</th>
+            <th className="px-6 py-4 text-center text-sm font-medium text-gray-700 border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {roles.map((role) => (
-            <tr key={role.id} className="hover:bg-gray-100">
-              <td className="px-4 py-2">{role.name}</td>
-              <td className="px-4 py-2">{role.permissions.join(", ")}</td>
-              <td className="px-4 py-2 text-center">
-                <button className="text-blue-600 hover:text-blue-800" onClick={()=> handleEdit(role.id)}>Edit</button>
+          {filteredRoles.map((role) => (
+            <tr key={role.id} className="hover:bg-gray-50">
+              <td className="px-6 py-4 text-sm text-gray-800">{role.name}</td>
+              <td className="px-6 py-4 text-sm text-gray-800">{role.permissions.join(", ")}</td>
+              <td className="px-6 py-4 text-center">
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  onClick={() => handleEdit(role.id)}
+                >
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
