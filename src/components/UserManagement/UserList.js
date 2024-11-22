@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../../api';
-import { FaSearch } from 'react-icons/fa'; // For the search icon
-
+import { FaSearch } from 'react-icons/fa'; 
 const UserList = ({ roles }) => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,7 +8,7 @@ const UserList = ({ roles }) => {
   const rolesMap = new Map(roles.map(role => [role.id, role.name]));
 
   useEffect(() => {
-    // Fetch user data from the API
+    
     const getUsers = async () => {
       const usersList = await fetchUsers();
       setUsers(usersList);
@@ -17,12 +16,12 @@ const UserList = ({ roles }) => {
     getUsers();
   }, []);
 
-  // Handle search input
+  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filter users based on search term
+ 
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -37,7 +36,7 @@ const UserList = ({ roles }) => {
     <div className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">User Management</h2>
 
-      {/* Search bar with icon */}
+      
       <div className="flex items-center mb-6">
         <FaSearch className="text-gray-500 mr-3" />
         <input
@@ -49,7 +48,7 @@ const UserList = ({ roles }) => {
         />
       </div>
 
-      {/* Table with enhanced styles */}
+      
       <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
         <thead className="bg-gray-100">
           <tr>

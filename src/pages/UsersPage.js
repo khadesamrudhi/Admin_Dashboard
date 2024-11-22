@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { fetchUsers, addUser, deleteUser } from "../api"; // Assuming the API functions are in api.js
+import { fetchUsers, addUser, deleteUser } from "../api"; 
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch users when the component is mounted
+  
   useEffect(() => {
     const getUsers = async () => {
       try {
@@ -23,7 +23,7 @@ const UsersPage = () => {
     getUsers();
   }, []);
 
-  // Handle delete user
+  
   const handleDelete = async (id) => {
     try {
       await deleteUser(id);
@@ -37,7 +37,7 @@ const UsersPage = () => {
     <div className="users-page">
       <h1>Manage Users</h1>
       
-      {/* Loading state */}
+     
       {isLoading ? (
         <p>Loading users...</p>
       ) : (
@@ -46,7 +46,7 @@ const UsersPage = () => {
             <Link to="/users/add" className="btn btn-primary">Add User</Link>
           </div>
 
-          {/* Display users in a table */}
+          
           <table className="user-table">
             <thead>
               <tr>

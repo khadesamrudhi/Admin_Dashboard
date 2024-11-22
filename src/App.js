@@ -29,14 +29,14 @@ const App = () => {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
-        {/* Navbar (Persistent across pages) */}
+       
         <Navbar />
 
         <div className="flex">
-          {/* Sidebar (Persistent across pages) */}
+         
           <Sidebar />
 
-          {/* Main Content Area */}
+          
           <div className="flex-1 p-6">
             <Routes>
               <Route path="/" element={<UserList roles={roles} />} />

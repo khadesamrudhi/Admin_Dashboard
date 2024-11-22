@@ -6,10 +6,10 @@ const AddEditRole = ({ roles }) => {
   const [form, setForm] = useState({ name: "" });
   const { id } = useParams();
 
-  // Roles Map to fetch role by ID
+  
   const rolesMap = new Map(roles.map((role) => [role.id, role]));
 
-  // Fetch role details if editing
+  
   useEffect(() => {
     const getRole = async () => {
       try {
@@ -35,11 +35,11 @@ const AddEditRole = ({ roles }) => {
     e.preventDefault();
     try {
       if (id) {
-        // Update existing role
+        
         await updateRole(id, form);
         alert("Role updated successfully!");
       } else {
-        // Add new role
+        
         await addRole(form);
         alert("Role added successfully!");
       }

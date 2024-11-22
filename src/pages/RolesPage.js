@@ -7,7 +7,7 @@ const API_BASE = "http://localhost:5000";
 const RolesPage = () => {
   const [roles, setRoles] = useState([]);
 
-  // Fetch roles from API
+  
   const fetchRoles = async () => {
     try {
       const response = await axios.get(`${API_BASE}/roles`);
@@ -48,10 +48,10 @@ const RolesPage = () => {
           {roles.map((role) => (
             <tr key={role.id}>
               <td>{role.name}</td>
-              <td>{role.permissions.join(", ")}</td> {/* Display permissions */}
+              <td>{role.permissions.join(", ")}</td> 
               <td>
                 <Link to={`/edit-role/${role.id}`}>
-                  <button>Edit Role</button> {/* Edit Role Link */}
+                  <button>Edit Role</button> 
                 </Link>
               </td>
             </tr>

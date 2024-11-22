@@ -6,14 +6,14 @@ const AddEditUser = ({ roles }) => {
     name: "",
     email: "",
     roleId: roles[0]?.id || "",
-    status: "Active", // Default to Active
+    status: "Active", 
   });
 
-  const userId = window.location.pathname.split("/")[2]; // Get user ID from the URL
+  const userId = window.location.pathname.split("/")[2]; 
 
   useEffect(() => {
     if (userId) {
-      // Fetch user details when editing
+      
       const getUser = async () => {
         try {
           const resp = await fetchUser(userId);
@@ -23,7 +23,7 @@ const AddEditUser = ({ roles }) => {
               name: userData.name || "",
               email: userData.email || "",
               roleId: userData.roleId || roles[0]?.id || "",
-              status: userData.status ? "Active" : "Inactive", // Convert boolean to string
+              status: userData.status ? "Active" : "Inactive", 
             });
           }
         } catch (error) {
@@ -46,23 +46,23 @@ const AddEditUser = ({ roles }) => {
       name: formData.name,
       email: formData.email,
       roleId: formData.roleId,
-      status: formData.status === "Active", // Convert string back to boolean
+      status: formData.status === "Active", 
     };
 
     try {
       if (userId) {
-        // Update existing user
+        
         const resp = await updateUser(userId, payload);
         if (resp.status === 200) {
           alert("User updated successfully");
-          window.location.href = "/users"; // Redirect to users list
+          window.location.href = "/users"; 
         }
       } else {
-        // Add a new user
+        
         const resp = await addUser(payload);
         if (resp.status === 201) {
           alert("User added successfully");
-          window.location.href = "/"; // Redirect to users list
+          window.location.href = "/"; 
         }
       }
     } catch (error) {

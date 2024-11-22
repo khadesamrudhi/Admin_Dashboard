@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { FaSearch } from 'react-icons/fa'; // For the search icon
+import { FaSearch } from 'react-icons/fa'; 
 
 const RoleList = ({ roles, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Handle search input
+  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filter roles based on search term
+  
   const filteredRoles = roles.filter(
     (role) =>
       role.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -20,14 +20,14 @@ const RoleList = ({ roles, onDelete }) => {
   };
 
   const handleDelete = (roleId) => {
-    onDelete(roleId);  // Call the onDelete function passed as a prop
+    onDelete(roleId);  
   };
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">Role Management</h2>
 
-      {/* Search bar with icon */}
+      
       <div className="flex items-center mb-6">
         <FaSearch className="text-gray-500 mr-3" />
         <input
@@ -39,7 +39,7 @@ const RoleList = ({ roles, onDelete }) => {
         />
       </div>
 
-      {/* Table with enhanced styles */}
+      
       <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
         <thead className="bg-gray-100">
           <tr>
@@ -60,7 +60,7 @@ const RoleList = ({ roles, onDelete }) => {
                 </button>
                 <button
                   className="ml-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-                  onClick={() => handleDelete(role.id)} // Delete the role when clicked
+                  onClick={() => handleDelete(role.id)} 
                 >
                   Delete
                 </button>

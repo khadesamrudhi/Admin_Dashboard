@@ -1,4 +1,3 @@
-// src/components/Sidebar.js
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaUsers, FaPlus, FaTasks } from "react-icons/fa";
@@ -6,13 +5,13 @@ import { FaUser, FaUsers, FaPlus, FaTasks } from "react-icons/fa";
 const Sidebar = () => {
   return (
     <div className="w-64 min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-indigo-800 text-white p-6 shadow-2xl flex flex-col justify-between">
-      {/* Header */}
+    
       <div>
         <h2 className="text-4xl font-extrabold mb-10 text-center uppercase tracking-wider">
           Admin Panel
         </h2>
         <nav className="space-y-12">
-          {/* User and Role Management Section */}
+          
           <div className="space-y-6">
             <Link
               to="/"
@@ -30,7 +29,7 @@ const Sidebar = () => {
             </Link>
           </div>
 
-          {/* Add User and Add Role Section */}
+          
           <div className="space-y-6">
             <Link
               to="/add-user"
@@ -50,7 +49,7 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* Footer */}
+     
       <div className="text-center mt-8">
         <p className="text-sm text-gray-300">&copy; 2024 Admin Panel</p>
       </div>
