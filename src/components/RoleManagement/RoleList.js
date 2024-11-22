@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa'; 
+import { deleteRole } from '../../api';
 
 const RoleList = ({ roles, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,7 +21,17 @@ const RoleList = ({ roles, onDelete }) => {
   };
 
   const handleDelete = (roleId) => {
-    onDelete(roleId);  
+    const deletingRole = async ()=>{
+      try{
+        await deleteRole(roleId);
+        alert("Role deleted successfully");
+        window.location.reload();
+      }
+      catch (error) {
+        alert("Error deleting role");
+      }
+    }
+    deletingRole();
   };
 
   return (

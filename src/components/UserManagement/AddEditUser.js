@@ -55,7 +55,7 @@ const AddEditUser = ({ roles }) => {
         const resp = await updateUser(userId, payload);
         if (resp.status === 200) {
           alert("User updated successfully");
-          window.location.href = "/users"; 
+          window.location.href = "/"; 
         }
       } else {
         

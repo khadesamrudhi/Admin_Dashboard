@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUsers } from '../../api';
-import { FaSearch } from 'react-icons/fa'; 
+import { fetchUsers, deleteUser } from '../../api'; // Ensure `deleteUser` API is defined
+import { FaSearch } from 'react-icons/fa';
+
 const UserList = ({ roles }) => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const rolesMap = new Map(roles.map(role => [role.id, role.name]));
+  const rolesMap = new Map(roles.map((role) => [role.id, role.name]));
 
   useEffect(() => {
-    
     const getUsers = async () => {
       const usersList = await fetchUsers();
       setUsers(usersList);
@@ -16,27 +16,37 @@ const UserList = ({ roles }) => {
     getUsers();
   }, []);
 
-  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
- 
+  const handleEditing = (userId) => {
+    window.location.href = `/edit-user/${userId}`;
+  };
+
+  const handleDelete = (userId) => {
+    const deletingUser = async () => {
+      try {
+        await deleteUser(userId);
+        alert('User deleted successfully');
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+      } catch (error) {
+        alert('Error deleting user');
+      }
+    };
+    deletingUser();
+  };
+
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleEditing = (userId) => {
-    window.location.href = `/edit-user/${userId}`;
-  };
-
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">User Management</h2>
 
-      
       <div className="flex items-center mb-6">
         <FaSearch className="text-gray-500 mr-3" />
         <input
@@ -48,7 +58,6 @@ const UserList = ({ roles }) => {
         />
       </div>
 
-      
       <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
         <thead className="bg-gray-100">
           <tr>
@@ -80,6 +89,12 @@ const UserList = ({ roles }) => {
                   onClick={() => handleEditing(user.id)}
                 >
                   Edit
+                </button>
+                <button
+                  className="ml-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
                 </button>
               </td>
             </tr>
