@@ -24,12 +24,12 @@ const UserList = ({ roles }) => {
     window.location.href = `/edit-user/${userId}`;
   };
 
-  const handleDelete = (userId) => {
+  const handleDelete = (user) => {
     const deletingUser = async () => {
       try {
-        await deleteUser(userId);
+        await deleteUser(user);
         alert('User deleted successfully');
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+        setUsers((prevUsers) => prevUsers.filter((puser) => puser.id !== user.id));
       } catch (error) {
         alert('Error deleting user');
       }
@@ -92,7 +92,7 @@ const UserList = ({ roles }) => {
                 </button>
                 <button
                   className="ml-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-                  onClick={() => handleDelete(user.id)}
+                  onClick={() => handleDelete(user)}
                 >
                   Delete
                 </button>

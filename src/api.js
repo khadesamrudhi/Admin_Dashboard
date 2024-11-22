@@ -59,9 +59,9 @@ export const updateUser = async (id, user) => {
   }
 };
 
-export const deleteUser = async (id) => {
+export const deleteUser = async (user) => {
   try {
-    await api.delete(`/users/${id}`);
+    await api.delete(`roles/${user.roleId}/users/${user.id}`);
   } catch (error) {
     throw new Error(handleError(error));
   }
