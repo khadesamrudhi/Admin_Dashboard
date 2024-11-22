@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { addRole, updateRole, fetchRoles } from "../../api";
 import { useParams, useNavigate } from "react-router-dom";
 
-const AddEditRole = ({roles}) => {
+const AddEditRole = ({ roles }) => {
   const [form, setForm] = useState({ name: "", permissions: [] });
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const allPermissions = ["create", "read", "update", "delete"];
 
   const rolesMap = new Map(roles.map((role) => [role.id, role]));
-
 
   // Fetch role details if editing
   useEffect(() => {
@@ -35,12 +34,19 @@ const AddEditRole = ({roles}) => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
-      setForm((prev) => ({
-        ...prev,
-        permissions: checked
-          ? [...prev.permissions, value] // Add permission
-          : prev.permissions.filter((perm) => perm !== value), // Remove permission
-      }));
+      if (checked) {
+        // Permission added, perform "create" action
+        setForm((prev) => ({
+          ...prev,
+          permissions: [...prev.permissions, value], // Add permission
+        }));
+      } else {
+        // Permission removed, perform "delete" action
+        setForm((prev) => ({
+          ...prev,
+          permissions: prev.permissions.filter((perm) => perm !== value), // Remove permission
+        }));
+      }
     } else {
       setForm({ ...form, [name]: value });
     }

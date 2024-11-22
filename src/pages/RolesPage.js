@@ -8,17 +8,26 @@ const RolesPage = () => {
   const [roles, setRoles] = useState([]);
 
   // Fetch roles from API
+  const fetchRoles = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/roles`);
+      setRoles(response.data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const response = await axios.get(`${API_BASE}/roles`);
-        setRoles(response.data);
-      } catch (error) {
-        console.error("Error fetching roles:", error);
-      }
-    };
     fetchRoles();
   }, []);
+
+  const handleRoleUpdate = (updatedRole) => {
+    setRoles((prevRoles) => {
+      return prevRoles.map((role) =>
+        role.id === updatedRole.id ? updatedRole : role
+      );
+    });
+  };
 
   return (
     <div>
@@ -41,8 +50,8 @@ const RolesPage = () => {
               <td>{role.name}</td>
               <td>{role.permissions.join(", ")}</td> {/* Display permissions */}
               <td>
-                <Link to={`/edit-permissions/${role.id}`}>
-                  <button>Edit Permissions</button> {/* Edit Permissions Link */}
+                <Link to={`/edit-role/${role.id}`}>
+                  <button>Edit Role</button> {/* Edit Role Link */}
                 </Link>
               </td>
             </tr>
