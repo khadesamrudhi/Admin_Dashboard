@@ -15,6 +15,10 @@ This **Admin Dashboard** is a frontend web application designed to help administ
 - **Responsive Design**: Fully responsive layout optimized for both desktop and mobile users.
 - **Mock API Integration**: Realistic simulation of API calls to handle data, ensuring the app behaves as it would with real backend services.
 
+## Bonus Features
+- **Search Bar**: Added functionality to search users efficiently by name, email, or role.
+- **CRUD Operations**: Implemented intuitive forms and controls for adding, editing, and deleting user information seamlessly.
+
 ## Available Scripts
 
 In the project directory, you can run the following commands:
@@ -40,9 +44,6 @@ If you aren't satisfied with the build tool and configuration choices, you can e
 
 You don’t have to use eject unless necessary. The default configuration is well-suited for most small-to-medium deployments.
 
-## Bonus Features
-- **Search Bar**: Added functionality to search users efficiently by name, email, or role.
-- **CRUD Operations**: Implemented intuitive forms and controls for adding, editing, and deleting user information seamlessly.
 
 ## Getting Started
 
